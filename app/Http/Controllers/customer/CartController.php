@@ -13,15 +13,22 @@ class CartController extends Controller
     {
         $phones = Phones::all();
         return response()->json([
-           'phones'=>$phones
+            'phones' => $phones
         ]);
     }
 
     public function addToCart(Phones $phone)
     {
-        Redis::lpush('cart',$phone->name);
+        Redis::lpush('cart', $phone->name);
+    }
 
-        $values = Redis::lrange('cart',0,-1);
-        return $values;
+    public function removeFromCart(Phones $phone)
+    {
+        Redis::lrem('cart',1,$phone->name);
+    }
+
+    public function result()
+    {
+        return Redis::lrange('cart', 0, -1);
     }
 }
