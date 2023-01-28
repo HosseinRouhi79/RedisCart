@@ -37,7 +37,7 @@ class CartController extends Controller
     public function pay()
     {
         $record = Record::create([
-           'user'=> Auth::user(),
+           'user'=> Auth::user()->name,
            'email'=> Auth::user()->email
         ]);
         $phoneId = Redis::lrange(Auth::user(),0,-1);
