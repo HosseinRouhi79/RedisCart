@@ -27,4 +27,5 @@ Route::middleware('auth:sanctum')->group(function (){
    Route::post('/add/phones/{phone}',[\App\Http\Controllers\customer\CartController::class,'addToCart']);
    Route::post('/remove/phones/{phone}',[\App\Http\Controllers\customer\CartController::class,'removeFromCart']);
    Route::get('/phones/result',[\App\Http\Controllers\customer\CartController::class,'result']);
+   Route::post('/phones/pay',[\App\Http\Controllers\customer\CartController::class,'pay']);
 });
