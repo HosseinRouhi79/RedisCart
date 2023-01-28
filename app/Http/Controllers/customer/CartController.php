@@ -5,6 +5,7 @@ namespace App\Http\Controllers\customer;
 use App\Http\Controllers\Controller;
 use App\Models\Phones;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 
 class CartController extends Controller
@@ -19,16 +20,16 @@ class CartController extends Controller
 
     public function addToCart(Phones $phone)
     {
-        Redis::lpush('cart', $phone->name);
+        Redis::lpush(Auth::user(), $phone->name);
     }
 
     public function removeFromCart(Phones $phone)
     {
-        Redis::lrem('cart',1,$phone->name);
+        Redis::lrem(Auth::user(),1,$phone->name);
     }
 
     public function result()
     {
-        return Redis::lrange('cart', 0, -1);
+        return Redis::lrange(Auth::user(), 0, -1);
     }
 }
