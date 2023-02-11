@@ -42,6 +42,7 @@ class CartController extends Controller
         ]);
         $phoneId = Redis::lrange(Auth::user(),0,-1);
         $record->phones()->attach($phoneId);
+        Redis::del(Auth::user());
 
     }
 }
